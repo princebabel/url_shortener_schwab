@@ -44,10 +44,10 @@ This document records the current repository state using evidence from the actua
 
 | Metric | Current Value | Target/Threshold | Measurement Tool | Notes |
 |---|---:|---:|---|---|
-| Total logged AI tasks | 1 | N/A | [../ai-traceability.md](../ai-traceability.md) | The traceability log contains one actual logged task entry. |
-| Accepted tasks | 0 | N/A | [../ai-traceability.md](../ai-traceability.md) | No rows were marked as Accepted. |
-| Edited tasks | 1 | N/A | [../ai-traceability.md](../ai-traceability.md) | The single logged row is marked as Edited. |
-| Rejected tasks | 0 | N/A | [../ai-traceability.md](../ai-traceability.md) | No rows were marked as Rejected. |
+| Total logged AI tasks | 1 | N/A | [../04_ai-traceability.md](../04_ai-traceability.md) | The traceability log contains one actual logged task entry. |
+| Accepted tasks | 0 | N/A | [../04_ai-traceability.md](../04_ai-traceability.md) | No rows were marked as Accepted. |
+| Edited tasks | 1 | N/A | [../04_ai-traceability.md](../04_ai-traceability.md) | The single logged row is marked as Edited. |
+| Rejected tasks | 0 | N/A | [../04_ai-traceability.md](../04_ai-traceability.md) | No rows were marked as Rejected. |
 | Custom agents | 3 | N/A | [../../.github/agents](../../.github/agents) | Three agent files are present, including the new Task Router agent. |
 | Instructions files | 9 | N/A | [../../.github/instructions](../../.github/instructions) | Nine instruction files are present. |
 | Skills | 10 | N/A | [../../.github/skills](../../.github/skills) | Ten skill directories are present. |

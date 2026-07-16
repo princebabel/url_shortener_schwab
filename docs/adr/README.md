@@ -31,6 +31,6 @@ Each ADR follows this structure:
 
 ## Navigation
 
-- [Architecture Overview](../architecture.md)
+- [Architecture Overview](../03_architecture.md)
 - [Engineering Decisions](../others/engineering-decisions.md)
 - [API Summary](../others/api-summary.md)

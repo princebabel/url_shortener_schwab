@@ -263,9 +263,9 @@ Every request will carry a correlation ID to connect logs, traces, and monitorin
 
 ## 11. Agent and Skill Design
 
-Three custom agents support this workflow: Task Router, Greenfield Engineer, and Brownfield Engineer, all defined under [.github/agents/](.github/agents/).
+Three custom agents support this workflow: Task Router, Greenfield Engineer, and Brownfield Engineer, all defined under [../.github/agents/](../.github/agents/).
 Task Router is the triage step that reviews an incoming request, checks the existing codebase, and recommends whether the work should be handled as greenfield or brownfield before any implementation begins.
-Numbered prompts under [.github/prompts/](.github/prompts/) are manually invoked at specific workflow stages, while skills under [.github/prompts/skills/](.github/prompts/skills/) are auto-invoked by the agents based on task context.
+Numbered prompts under [../.github/prompts/](../.github/prompts/) are manually invoked at specific workflow stages, while skills under [../.github/skills/](../.github/skills/) are auto-invoked by the agents based on task context.
 Greenfield Engineer invokes requirement-analysis, task-decomposition, api-contract-design, spring-boot-scaffolding, test-generation, and security-review.
 Brownfield Engineer invokes requirement-analysis, task-decomposition, codebase-impact-analysis, regression-test-generation, refactor-safety-check, security-review, and documentation-sync.
 This split was deliberately corrected once to ensure brownfield tasks are not undersupported, as documented in [docs/others/engineering-decisions.md](others/engineering-decisions.md).

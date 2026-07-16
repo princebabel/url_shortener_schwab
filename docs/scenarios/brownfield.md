@@ -4,7 +4,7 @@
 
 1. Treat the current repository as an existing system and trace the controller-to-service-to-repository path before changing behavior.
 2. Identify where behavior is already exercised by tests and where a regression risk exists around the current endpoints and exceptions.
-3. Use the existing implementation and documents as the source of truth for changes, especially [docs/architecture.md](../architecture.md), [docs/others/api-summary.md](../others/api-summary.md), and [docs/others/engineering-decisions.md](../others/engineering-decisions.md).
+3. Use the existing implementation and documents as the source of truth for changes, especially [docs/03_architecture.md](../03_architecture.md), [docs/others/api-summary.md](../others/api-summary.md), and [docs/others/engineering-decisions.md](../others/engineering-decisions.md).
 
 ## Execution
 

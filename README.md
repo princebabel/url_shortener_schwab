@@ -5,7 +5,7 @@ This repository contains a Spring Boot 3 / Java 21 URL shortener backend impleme
 ## Start Here
 
 - Primary entry: [docs/02_final-engineering-summary.md](docs/02_final-engineering-summary.md)
-- Secondary reading: [docs/scenarios/](docs/scenarios/), [docs/03_architecture.md](docs/03_architecture.md), [docs/04_ai-traceability.md](docs/04_ai-traceability.md), [docs/others/setup-guide.md](docs/others/setup-guide.md)
+- Secondary reading: [docs/scenarios/](docs/scenarios/), [docs/03_architecture.md](docs/03_architecture.md), [docs/04_ai-traceability.md](docs/04_ai-traceability.md), [docs/01_setup-guide.md](docs/01_setup-guide.md)
 
 ## Current Status
 
