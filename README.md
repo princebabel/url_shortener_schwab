@@ -63,6 +63,49 @@ src/
     java/com/schwab/urlshortener/  # Unit and integration-style tests
 ```
 
+## GitHub Folder Structure
+
+The repository contains a `.github` folder with structured agent, instruction, prompt, and skill assets supporting the Copilot engineering workflow.
+
+```
+.github/
+  agents/
+    coding-assistant-brownfield.agent.md    # Brownfield engineering agent
+    coding-assistant-greenfield.agent.md   # Greenfield engineering agent
+    coding-assistant-task-router.agent.md  # Task router agent
+  instructions/
+    config-logging-conventions.instructions.md      # Config/logging conventions
+    controller-conventions.instructions.md          # Controller design rules
+    documentation-conventions.instructions.md       # Documentation conventions
+    dto-validation-conventions.instructions.md      # DTO validation rules
+    exception-handling-conventions.instructions.md  # Exception handling rules
+    repository-entity-conventions.instructions.md   # Repository/entity conventions
+    security-conventions.instructions.md            # Security and validation guidance
+    service-conventions.instructions.md             # Service-layer conventions
+    test-conventions.instructions.md                # Test quality expectations
+  prompts/
+    01-requirement-analysis.md    # Requirement analysis prompt
+    02-task-decomposition.md      # Task decomposition prompt
+    03-architecture-design.md     # Architecture design prompt
+    04-backend-bootstrap.md       # Backend bootstrap prompt
+    05-url-creation.md            # URL creation prompt
+    06-url-redirection.md         # URL redirection prompt
+    07-analytics-dashboard.md     # Analytics/dashboard prompt
+    08-enterprise-quality.md      # Enterprise quality prompt
+    09-submission-package.md      # Submission/package prompt
+  skills/
+    api-contract-design/            # API contract design skill
+    codebase-impact-analysis/       # Codebase impact analysis skill
+    documentation-sync/             # Documentation sync skill
+    refactor-safety-check/          # Refactor safety check skill
+    regression-test-generation/     # Regression test generation skill
+    requirement-analysis/           # Requirement analysis skill
+    security-review/                # Security review skill
+    spring-boot-scaffolding/        # Spring Boot scaffolding skill
+    task-decomposition/             # Task decomposition skill
+    test-generation/                # Test generation skill
+```
+
 ## Build and Run
 
 ### Prerequisites
