@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@SuppressWarnings("PMD.LooseCoupling")
 @RestController
 @RequestMapping("/api/urls")
 @RequiredArgsConstructor
@@ -74,7 +75,7 @@ public class UrlController {
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "createdAt") String sortBy,
             @RequestParam(defaultValue = "desc") String direction) {
-        Sort sort = direction.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+        Sort sort = "asc".equalsIgnoreCase(direction) ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
         Pageable pageable = PageRequest.of(page, size, sort);
         return ResponseEntity.ok(urlService.getUrls(search, active, expired, pageable));
     }
@@ -84,7 +85,7 @@ public class UrlController {
      */
     @Tag(name = "URLs", description = "Create, manage, and resolve short URLs")
     @GetMapping("/search")
-    public ResponseEntity<Page<UrlResponse>> searchUrls(@RequestParam String query, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+    public ResponseEntity<Page<UrlResponse>> searchUrls(@RequestParam(name = "q") String query, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
         return ResponseEntity.ok(urlService.getUrls(query, null, null, pageable));
     }

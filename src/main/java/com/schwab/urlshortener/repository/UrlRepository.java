@@ -44,6 +44,7 @@ public interface UrlRepository extends JpaRepository<UrlEntity, Long> {
 
     long countByExpiryDateBefore(Instant now);
 
+    @Override
     long count();
 
     @Query("select coalesce(sum(u.clickCount), 0) from UrlEntity u")

@@ -15,6 +15,7 @@ import com.schwab.urlshortener.validation.UrlValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,8 +42,10 @@ public class UrlServiceImpl implements UrlService {
         }
 
         String customAlias = request.getCustomAlias();
-        if (customAlias != null && !customAlias.isBlank() && urlRepository.existsByCustomAlias(customAlias)) {
-            throw new DuplicateAliasException("Custom alias already exists");
+        if (customAlias != null && !customAlias.isBlank()) {
+            if (urlRepository.existsByCustomAlias(customAlias) || urlRepository.existsByShortCode(customAlias)) {
+                throw new DuplicateAliasException("Custom alias already exists");
+            }
         }
 
         String shortCode = generateShortCode(customAlias);
@@ -62,10 +65,18 @@ public class UrlServiceImpl implements UrlService {
 
         try {
             UrlEntity savedEntity = urlRepository.saveAndFlush(entity);
-            log.info("Created short URL with code {}", savedEntity.getShortCode());
+            if (log.isInfoEnabled()) {
+                log.info("Created short URL with code {}", savedEntity.getShortCode());
+            }
             return toResponse(savedEntity);
         } catch (DataAccessException ex) {
-            log.error("Database error while creating URL", ex);
+            if (log.isErrorEnabled()) {
+                log.error("Database error while creating URL", ex);
+            }
+            // Translate unique constraint / integrity violations into a DuplicateAliasException
+            if (ex instanceof DataIntegrityViolationException || (ex.getCause() != null && ex.getCause().getMessage() != null && ex.getCause().getMessage().toLowerCase().contains("unique"))) {
+                throw new DuplicateAliasException("Custom alias already exists");
+            }
             throw ex;
         }
     }
@@ -91,27 +102,39 @@ public class UrlServiceImpl implements UrlService {
 
         int updatedRows = urlRepository.incrementClickCount(shortCode, now);
         if (updatedRows != 1) {
-            log.warn("Click tracking update did not affect one row for short code {}", shortCode);
+            if (log.isWarnEnabled()) {
+                log.warn("Click tracking update did not affect one row for short code {}", shortCode);
+            }
         }
 
-        log.info("Redirecting short code {} to {}", shortCode, entity.getOriginalUrl());
+        if (log.isInfoEnabled()) {
+            log.info("Redirecting short code {} to {}", shortCode, entity.getOriginalUrl());
+        }
         return entity.getOriginalUrl();
     }
 
     @Override
     public UrlAnalyticsResponse getAnalytics(String shortCode) {
         UrlEntity entity = urlRepository.findByShortCode(shortCode)
-                .orElseThrow(() -> new ShortCodeNotFoundException("Short code not found"));
+            .orElseThrow(() -> new ShortCodeNotFoundException("Short code not found"));
+
+        Instant now = Instant.now();
+        if (!Boolean.TRUE.equals(entity.getActive())) {
+            throw new InactiveUrlException("URL is inactive");
+        }
+        if (entity.getExpiryDate() != null && entity.getExpiryDate().isBefore(now)) {
+            throw new ExpiredUrlException("URL has expired");
+        }
 
         return UrlAnalyticsResponse.builder()
-                .shortCode(entity.getShortCode())
-                .originalUrl(entity.getOriginalUrl())
-                .clickCount(entity.getClickCount())
-                .createdAt(entity.getCreatedAt())
-                .expiryDate(entity.getExpiryDate())
-                .lastAccessedAt(entity.getLastAccessedAt())
-                .active(entity.getActive())
-                .build();
+            .shortCode(entity.getShortCode())
+            .originalUrl(entity.getOriginalUrl())
+            .clickCount(entity.getClickCount())
+            .createdAt(entity.getCreatedAt())
+            .expiryDate(entity.getExpiryDate())
+            .lastAccessedAt(entity.getLastAccessedAt())
+            .active(entity.getActive())
+            .build();
     }
 
     @Override

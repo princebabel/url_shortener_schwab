@@ -30,9 +30,13 @@ public class CorrelationIdFilter extends OncePerRequestFilter {
         response.setHeader(CORRELATION_ID_HEADER, correlationId);
 
         try {
-            log.info("Request received: {} {}", request.getMethod(), request.getRequestURI());
+            if (log.isInfoEnabled()) {
+                log.info("Request received: {} {}", request.getMethod(), request.getRequestURI());
+            }
             filterChain.doFilter(request, response);
-            log.info("Request completed: {} {}", request.getMethod(), request.getRequestURI());
+            if (log.isInfoEnabled()) {
+                log.info("Request completed: {} {}", request.getMethod(), request.getRequestURI());
+            }
         } finally {
             MDC.clear();
         }

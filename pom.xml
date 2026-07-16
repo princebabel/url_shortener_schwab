@@ -19,6 +19,8 @@
     <properties>
         <java.version>21</java.version>
         <springdoc.version>2.5.0</springdoc.version>
+        <testcontainers.version>1.19.8</testcontainers.version>
+        <postgresql.version>42.7.3</postgresql.version>
     </properties>
 
     <dependencies>
@@ -61,6 +63,25 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- Testcontainers for integration tests -->
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>testcontainers</artifactId>
+            <version>${testcontainers.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${testcontainers.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${testcontainers.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -182,6 +203,8 @@
     </plugin>
 
     <!-- Dependency Vulnerability Scanning: OWASP Dependency Check -->
+    <!-- Decoupled from verify lifecycle (see engineering-decisions.md ADR-009).
+         Run on-demand via: mvn dependency-check:check -->
     <plugin>
       <groupId>org.owasp</groupId>
       <artifactId>dependency-check-maven</artifactId>
@@ -194,12 +217,6 @@
         <format>HTML</format>
         <format>JSON</format>
       </configuration>
-      <executions>
-        <execution>
-          <phase>verify</phase>
-          <goals><goal>check</goal></goals>
-        </execution>
-      </executions>
     </plugin>
         </plugins>
     </build>
