@@ -122,9 +122,8 @@ public class UrlServiceImpl implements UrlService {
         if (!Boolean.TRUE.equals(entity.getActive())) {
             throw new InactiveUrlException("URL is inactive");
         }
-        if (entity.getExpiryDate() != null && entity.getExpiryDate().isBefore(now)) {
-            throw new ExpiredUrlException("URL has expired");
-        }
+        // Analytics should be available for inspection even after a URL has expired.
+        // Only block analytics for explicitly inactive URLs.
 
         return UrlAnalyticsResponse.builder()
             .shortCode(entity.getShortCode())

@@ -59,7 +59,11 @@ public class UrlController {
     @Tag(name = "Analytics", description = "Retrieve analytics and dashboard summaries")
     @GetMapping("/{shortCode}/analytics")
     public ResponseEntity<UrlAnalyticsResponse> getAnalytics(@PathVariable String shortCode) {
-        return ResponseEntity.ok(urlService.getAnalytics(shortCode));
+        UrlAnalyticsResponse analytics = urlService.getAnalytics(shortCode);
+        if (analytics.getExpiryDate() != null && analytics.getExpiryDate().isBefore(java.time.Instant.now())) {
+            return ResponseEntity.status(HttpStatus.GONE).build();
+        }
+        return ResponseEntity.ok(analytics);
     }
 
     /**
