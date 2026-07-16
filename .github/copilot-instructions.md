@@ -1,0 +1,11 @@
+- Java 21, Spring Boot 3, Spring Data JPA, Spring Validation, Actuator, springdoc-openapi, Lombok, and PostgreSQL are the active stack.
+- Package-specific and file-type-specific rules live in scoped files under .github/instructions/ (for example controller-conventions, service-conventions, and test-conventions); this root file holds only project-wide facts that apply everywhere, so do not duplicate scoped rules here.
+- Three custom agents exist in .github/agents/ (Task Router, Greenfield Engineer, and Brownfield Engineer) with their own tool scopes and skill lists; these rules apply underneath all three, not instead of them.
+- Keep the package layout exactly as controller/, service/, repository/, entity/, dto/, exception/, and config/; do not invent alternate packages.
+- Use constructor injection only; never add field injection or @Autowired on fields.
+- No caching or auth/authorization layer exists yet, so do not assume cached reads or protected endpoints.
+- Treat the correlation-ID filter and structured logging in config/ as real existing cross-cutting concerns.
+- The live API contract is the springdoc-openapi annotations on controllers, surfaced at /swagger-ui.html; do not rely on a separate openapi.yaml file.
+- The confirmed controller mappings are POST /api/urls, GET /api/urls/{shortCode}, GET /api/urls/{shortCode}/analytics, GET /api/urls, GET /api/urls/search, GET /api/urls/dashboard/summary, GET /api/urls/dashboard/top, GET /api/urls/dashboard/recent, and GET /api/v1/health.
+- Test coverage is still marked as incomplete in README.md, so add or update tests for edge cases rather than assuming existing coverage is sufficient.
+- Keep docs/ai-traceability.md, docs/api-summary.md, docs/architecture.md, docs/engineering-decisions.md, docs/task-decomposition.md, docs/requirement-analysis.md, docs/github-configuration-guide.md, and docs/future-enhancements.md aligned with implementation changes.
