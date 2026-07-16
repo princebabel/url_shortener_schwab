@@ -7,8 +7,8 @@ This repository contains a Spring Boot 3 / Java 21 URL shortener backend with cr
 - Build status: verified with Maven verify
 - JaCoCo line coverage: 73.39% from the current generated report
 - Test suite: 12 test files under src/test/java
-- Static analysis: not yet configured in pom.xml
-- Dependency vulnerability scanning: not yet configured in pom.xml
+- Static analysis: **configured** (SpotBugs, PMD, Checkstyle)
+- Dependency vulnerability scanning: **configured** (OWASP Dependency Check)
 - Authentication and rate limiting: not implemented yet
 
 ## What Is Implemented
@@ -132,10 +132,18 @@ The create endpoint uses Bean Validation through @Valid on the request DTO. The 
 
 The repository includes tests for controllers, services, validation, exception handling, config, mapper, and utility behavior. The current verified JaCoCo report shows 73.39% line coverage.
 
-Current quality-related gaps:
+**Static Analysis & Quality Tools Configured:**
+- **SpotBugs** - Static analysis for bug patterns
+- **PMD** - Code quality and best practices analysis
+- **Checkstyle** - Code style enforcement (Google checks)
+- **OWASP Dependency Check** - Vulnerability scanning for dependencies (CVSS ≥ 7 fails build)
 
-- No SpotBugs or Checkstyle plugin is configured in pom.xml
-- No dependency-check / vulnerability scanning plugin is configured yet
+Run all quality checks with:
+```bash
+mvn verify
+```
+
+Current quality-related gaps:
 - No load/performance test suite is present yet
 
 ## Security and Governance Notes

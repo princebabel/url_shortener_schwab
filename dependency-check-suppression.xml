@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-check-suppression.2.0.xsd">
+    <!-- 
+    Suppression file for OWASP Dependency Check.
+    Add suppressions here for false positives or accepted risks.
+    Format:
+    <suppress>
+        <notes><![CDATA[Reason for suppression]]></notes>
+        <gav regex="true">groupId:artifactId:version</gav>
+        <cpe>cpe:/a:vendor:product:version</cpe>
+        <cve>CVE-XXXX-XXXX</cve>
+    </suppress>
+    -->
+</suppressions>
